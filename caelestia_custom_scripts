@@ -23,16 +23,17 @@ case "$1" in
     fi
     ;;
 
-
-
   transp)
-    current=$(jq '.appearance.transparency.enabled' "$CONFIG")
-    if [ "$current" = "true" ]; then
-      jq '.appearance.transparency.enabled = false' "$CONFIG" > "$CONFIG.tmp" && mv "$CONFIG.tmp" "$CONFIG"
-    else
-      jq '.appearance.transparency.enabled = true' "$CONFIG" > "$CONFIG.tmp" && mv "$CONFIG.tmp" "$CONFIG"
-    fi
-    ;;
+  new_state=$(jq '.appearance.transparency.enabled | not' "$CONFIG")
+
+  new_icon=$( [ "$new_state" = "true" ] && echo "invert_colors_off" || echo "invert_colors" )
+
+  jq --arg icon "$new_icon" --argjson state "$new_state" '
+    .appearance.transparency.enabled = $state
+    | (.launcher.actions[] | select(.name=="Transparency") | .icon) = $icon
+  ' "$CONFIG" > "$CONFIG.tmp" && mv "$CONFIG.tmp" "$CONFIG"
+  ;;
+
 
   bar)
   new_state=$(jq '.bar.persistent | not' "$CONFIG")
