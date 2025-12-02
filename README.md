@@ -14,6 +14,8 @@ Keybinds :
 - Super + M : open Deezer within Music vanilla special workspace
 - Super + R : open my To-Do Obsidian page within TO DO vanilla special workspace
 (edit file: cli.json)
+- Ctrl + Super + up : set random wallpaper
+- Ctrl + Super + down : toogle transparency
 - Override some keybind to feat french (AZERTY) keyboards  
 (edit file: hypr-user.conf)
 
