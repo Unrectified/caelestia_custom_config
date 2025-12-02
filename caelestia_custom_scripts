@@ -22,26 +22,29 @@ case "$1" in
       echo "❌ Impossible de trouver la ligne du shader !"
     fi
     ;;
+
+
+
   transp)
     current=$(jq '.appearance.transparency.enabled' "$CONFIG")
     if [ "$current" = "true" ]; then
       jq '.appearance.transparency.enabled = false' "$CONFIG" > "$CONFIG.tmp" && mv "$CONFIG.tmp" "$CONFIG"
-      echo "🔲 Transparency désactivée"
     else
       jq '.appearance.transparency.enabled = true' "$CONFIG" > "$CONFIG.tmp" && mv "$CONFIG.tmp" "$CONFIG"
-      echo "🟦 Transparency activée"
     fi
     ;;
+
   bar)
-    current=$(jq '.bar.persistent' "$CONFIG")
-    if [ "$current" = "true" ]; then
-      jq '.bar.persistent = false' "$CONFIG" > "$CONFIG.tmp" && mv "$CONFIG.tmp" "$CONFIG"
-      echo "🔲 Barre masquée"
-    else
-      jq '.bar.persistent = true' "$CONFIG" > "$CONFIG.tmp" && mv "$CONFIG.tmp" "$CONFIG"
-      echo "🟦 Barre affichée"
-    fi
-    ;;
+  new_state=$(jq '.bar.persistent | not' "$CONFIG")
+
+  new_icon=$( [ "$new_state" = "true" ] && echo "right_panel_open" || echo "left_panel_open" )
+
+  jq --arg icon "$new_icon" --argjson state "$new_state" '
+    .bar.persistent = $state
+    | (.launcher.actions[] | select(.name=="Bar") | .icon) = $icon
+  ' "$CONFIG" > "$CONFIG.tmp" && mv "$CONFIG.tmp" "$CONFIG"
+  ;;
+
   *)
     echo "Usage : $0 [transp|bar|black_white]"
     exit 1
