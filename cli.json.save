@@ -30,7 +30,7 @@
             }
         },
         "music": {
-            "deezer": {
+            "deezer-desktop": {
                 "enable": true,
                 "match": [{ "class": "deezer-desktop" }],
                 "command": ["deezer-desktop", "--wayland", "--disable-gpu"],
@@ -41,14 +41,14 @@
             "btop": {
                 "enable": true,
                 "match": [{ "class": "btop", "title": "btop", "workspace": { "name": "special:sysmon" } }],
-                "command": ["footclient", "-a", "btop", "-T", "btop", "fish", "-C", "exec btop"]
+                "command": ["foot", "-a", "btop", "-T", "btop", "fish", "-C", "exec btop"]
             }
         },
         "todo": {
             "obsidian": {
                 "enable": true,
                 "match": [{ "class": "obsidian" }],
-                "command": ["/usr/bin/obsidian"],
+                "command": ["xdg-open", "obsidian://open?vault=Test_Obsidian&file=TO DO.md"],
                 "move": true
             }
         },
@@ -61,7 +61,7 @@
             }
         },
         "controlcenter": {
-            "Caelestia Settings - Network": {
+            "controlcenter": {
                 "enable": true,
                 "match": [{"initialTitle": "Caelestia Settings - Network"}],
                 "command": ["caelestia", "shell", "controlCenter", "open"],
