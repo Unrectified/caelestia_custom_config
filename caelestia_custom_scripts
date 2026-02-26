@@ -2,11 +2,44 @@
 
 CONFIG="$HOME/.config/caelestia/shell.json"
 DECORATION_FILE="$HOME/.config/caelestia/hypr-user.conf"
+WALLPAPERS="$HOME/Pictures/Wallpapers"
+VIDEOS_WALLPAPERS="$HOME/Videos/Wallpapers"
+VIDEOS_PNG="$VIDEOS_WALLPAPERS/.convert"
+
 
 # ⚠️ Chemin EXACTEMENT comme dans ton fichier (avec $HOME non expansé)
 BLACK_WHITE_TARGET='screen_shader = $HOME/.config/hypr/custom/BWshader.glsl'
 
 case "$1" in
+  mpvpaper)
+    
+    if [ "$2" == "stop" ]; then
+      pkill -9 mpvpaper
+      notify-send "Live Wallpaper stopped" #"Enabled Video Wallpaper"
+    else
+      if [ -f "$2" ]; then
+        CONVERTED_JPG="$VIDEOS_PNG/$(basename "$2").jpg"
+        if [ ! -f "$CONVERTED_JPG" ]; then
+          echo "le fichier $CONVERTED_JPG était pas là " 
+          mkdir -p "$VIDEOS_PNG"
+          ffmpeg -i "$2" -frames:v 1 "$CONVERTED_JPG" > /dev/null 2> /dev/null
+        fi
+        pkill mpvpaper
+        pkill swww
+        REALVIDEO="$(realpath -P $2)"
+        mpvpaper -f -o "no-audio --loop-playlist" '*' "$REALVIDEO"
+        echo "real video $REALVIDEO"
+        /usr/bin/caelestia wallpaper -f "$CONVERTED_JPG" 
+        #notify-send "Live Wallpaper s" #"Enabled Video Wallpaper"
+      else
+        notify-send "Error" "This file does not exist" 
+      fi
+    fi
+  ;;
+  wallpaper)
+    cursor=$(hyprctl cursorpos | tr -d ' ')
+    swww img "$2" --transition-type grow --transition-duration 2 --transition-fps 60 --transition-pos $cursor --invert-y
+  ;;
   black_white)
     # 🔍 Si la ligne est commentée → décommenter
     if grep -q "^[[:space:]]*#${BLACK_WHITE_TARGET}" "$DECORATION_FILE"; then

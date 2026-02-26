@@ -21,6 +21,8 @@
       }
     },
     "anim": {
+      "mediaGifSpeedAdjustment": 300,
+      "sessionGifSpeed": 0.7,
       "durations": {
         "scale": 1
       }
@@ -32,6 +34,7 @@
     }
   },
   "general": {
+    "logo": "",
     "apps": {
       "terminal": [
         "footclient"
@@ -52,12 +55,12 @@
       "timeouts": [
         {
           "idleAction": "lock",
-          "timeout": 600
+          "timeout": 300
         },
         {
           "idleAction": "dpms off",
           "returnAction": "dpms on",
-          "timeout": 800
+          "timeout": 600
         },
         {
           "idleAction": [
@@ -90,25 +93,39 @@
           "title": "Critical battery level"
         }
       ],
-      "criticalLevel": 4
+      "criticalLevel": 3
     }
   },
   "background": {
     "enabled": true,
+    "wallpaperEnabled": false,
     "desktopClock": {
-      "enabled": true
+      "enabled": true,
+      "scale": 1,
+      "position": "top-right",
+      "invertColors": false,
+      "background": {
+        "enabled": true,
+        "opacity": 0.7,
+        "blur": true
+      },
+      "shadow": {
+        "enabled": true,
+        "opacity": 0.7,
+        "blur": 0.4
+      }
     },
     "visualiser": {
       "enabled": true,
       "autoHide": true,
-      "blur": true,
+      "blur": false,
       "rounding": 1,
-      "spacing": 0.9817664858096828
+      "spacing": 1
     }
   },
   "bar": {
     "persistent": true,
-    "showOnHover": false,
+    "showOnHover": true,
     "dragThreshold": 20,
     "scrollActions": {
       "workspaces": true,
@@ -126,7 +143,7 @@
       "occupiedBg": false,
       "showWindows": false,
       "showWindowsOnSpecialWorkspaces": false,
-      "activeTrail": true,
+      "activeTrail": false,
       "perMonitorWorkspaces": true,
       "label": "  ",
       "occupiedLabel": "󰮯",
@@ -148,9 +165,9 @@
       ]
     },
     "tray": {
-      "background": false,
+      "background": true,
       "recolour": true,
-      "compact": true,
+      "compact": false,
       "iconSubs": []
     },
     "status": {
@@ -158,6 +175,7 @@
       "showMicrophone": true,
       "showKbLayout": false,
       "showNetwork": true,
+      "showWifi": true,
       "showBluetooth": true,
       "showBattery": true,
       "showLockStatus": false
@@ -209,6 +227,9 @@
         "enabled": true,
         "id": "power"
       }
+    ],
+    "excludedScreens": [
+      ""
     ]
   },
   "border": {
@@ -218,8 +239,15 @@
   "dashboard": {
     "enabled": true,
     "showOnHover": true,
-    "mediaUpdateInterval": 500,
     "dragThreshold": 50,
+    "performance": {
+      "showBattery": true,
+      "showGpu": true,
+      "showCpu": true,
+      "showMemory": true,
+      "showStorage": true,
+      "showNetwork": true
+    },
     "sizes": {
       "tabIndicatorHeight": 3,
       "tabIndicatorSpacing": 5,
@@ -252,9 +280,10 @@
     "enableDangerousActions": false,
     "dragThreshold": 50,
     "vimKeybinds": false,
+    "favouriteApps": [],
     "hiddenApps": [],
     "useFuzzy": {
-      "apps": true,
+      "apps": false,
       "actions": false,
       "schemes": false,
       "variants": false,
@@ -267,17 +296,6 @@
       "wallpaperHeight": 190
     },
     "actions": [
-      {
-        "command": [
-          "autocomplete",
-          "calc"
-        ],
-        "dangerous": false,
-        "description": "Do simple math equations (powered by Qalc)",
-        "enabled": true,
-        "icon": "calculate",
-        "name": "Calculator"
-      },
       {
         "command": [
           "/usr/local/bin/caelestia_custom_scripts",
@@ -310,6 +328,17 @@
         "enabled": true,
         "icon": "invert_colors",
         "name": "Transparency"
+      },
+      {
+        "command": [
+          "autocomplete",
+          "calc"
+        ],
+        "dangerous": false,
+        "description": "Do simple math equations (powered by Qalc)",
+        "enabled": true,
+        "icon": "calculate",
+        "name": "Calculator"
       },
       {
         "command": [
@@ -413,9 +442,7 @@
       },
       {
         "command": [
-          "loginctl",
-          "terminate-user",
-          ""
+          "/home/natha/bin/logout.sh"
         ],
         "dangerous": true,
         "description": "Log out of the current session",
@@ -439,17 +466,30 @@
           "systemctl",
           "suspend-then-hibernate"
         ],
-        "dangerous": true,
+        "dangerous": false,
         "description": "Suspend then hibernate",
         "enabled": true,
         "icon": "bedtime",
         "name": "Sleep"
+      },
+      {
+        "command": [
+          "caelestia",
+          "shell",
+          "controlCenter",
+          "open"
+        ],
+        "dangerous": false,
+        "description": "Configure the shell",
+        "enabled": true,
+        "icon": "settings",
+        "name": "Settings"
       }
     ]
   },
   "notifs": {
     "expire": true,
-    "defaultExpireTimeout": 6000,
+    "defaultExpireTimeout": 5000,
     "clearThreshold": 0.3,
     "expandThreshold": 20,
     "actionOnClick": true,
@@ -474,12 +514,15 @@
     "enabled": true,
     "dragThreshold": 30,
     "vimKeybinds": false,
+    "icons": {
+      "logout": "logout",
+      "shutdown": "power_settings_new",
+      "hibernate": "downloading",
+      "reboot": "cached"
+    },
     "commands": {
       "logout": [
-        "hyprctl",
-        "dispatch",
-        "exit",
-        "0"
+        "/home/natha/bin/logout.sh"
       ],
       "shutdown": [
         "systemctl",
@@ -505,17 +548,18 @@
     }
   },
   "lock": {
-    "recolourLogo": true,
+    "recolourLogo": false,
     "enableFprint": true,
     "maxFprintTries": 5,
     "sizes": {
       "heightMult": 0.7,
+      "ratio": 1.7777777777777777,
       "centerWidth": 600
     }
   },
   "utilities": {
     "enabled": true,
-    "maxToasts": 3,
+    "maxToasts": 4,
     "sizes": {
       "width": 430,
       "toastWidth": 430
@@ -526,10 +570,10 @@
       "gameModeChanged": true,
       "dndChanged": true,
       "audioOutputChanged": true,
-      "audioInputChanged": false,
-      "capsLockChanged": false,
+      "audioInputChanged": true,
+      "capsLockChanged": true,
       "numLockChanged": true,
-      "kbLayoutChanged": false,
+      "kbLayoutChanged": true,
       "vpnChanged": true,
       "nowPlaying": false
     },
@@ -538,38 +582,37 @@
       "provider": [
         {
           "connectCmd": [
-            "nmcli",
-            "connection",
-            "up",
-            "wg-freebox"
+            "/home/natha/bin/tailscale_manage.sh",
+            "up"
           ],
           "disconnectCmd": [
-            "nmcli",
-            "connection",
-            "down",
-            "wg-freebox"
+            "/home/natha/bin/tailscale_manage.sh",
+            "down"
           ],
-          "displayName": "Freebox VPN",
-          "interface": "wg-freebox",
-          "name": "wireguard"
+          "displayName": "Tailscale",
+          "enabled": true,
+          "interface": "tailscale0",
+          "name": "tailscale"
         }
       ]
     }
   },
   "sidebar": {
     "enabled": true,
-    "dragThreshold": 40,
+    "dragThreshold": 80,
     "sizes": {
       "width": 430
     }
   },
   "services": {
-    "weatherLocation": "50.64143211431376, 3.044609607337032",
+    "weatherLocation": "50.73270626222886, 1.631038853746133",
     "useFahrenheit": false,
+    "useFahrenheitPerformance": false,
     "useTwelveHourClock": false,
-    "gpuType": "NVIDIA",
+    "gpuType": "nvidia",
     "visualiserBars": 45,
     "audioIncrement": 0.1,
+    "brightnessIncrement": 0.1,
     "maxVolume": 2,
     "smartScheme": true,
     "defaultPlayer": "Deezer",
@@ -589,8 +632,8 @@
     ]
   },
   "paths": {
-    "wallpaperDir": "/home/natha/Pictures/Wallpapers",
+    "wallpaperDir": "~/Pictures/Wallpapers",
     "sessionGif": "~/.config/caelestia/gifs/arch3.gif",
-    "mediaGif": "~/.config/caelestia/gifs/knight_1.gif"
+    "mediaGif": "~/.config/caelestia/gifs/knight.gif"
   }
 }
