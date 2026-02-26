@@ -1,6 +1,26 @@
 # My custom [Calestia-shell](https://github.com/caelestia-dots/shell) config
 
+## How to use
+- clone the repo in Caelestia config folder 
+ `git clone https://github.com/Unrectified/caelestia_custom_config.git ~/.config/caelestia && cd ~/.config/caelestia`
+- for easy acces to the main script symlink it to /usr/local/bin (fish version is not working):
+  `ln -s ~/.config/caelestia/caelestia_custom_scripts /usr/local/bin/caelestia_custom_scripts`
+- download swww (default wallpaper displayer)
+  `sudo pacman -S swww`
+  + disable wallpaper in Contrl center>appaerence>background
+
 ## Features and tweaks
+
+Script commands :
+- mpvpaper [video file]
+- wallpaper [wallpaper file] (can use gifs and animated webp thx to swww)
+- black_white (toogle black & white filter)
+- transp (toogle shell transparency)
+- bar (toogle bar)
+
+Global tweaks :
+- Set swwww as default wallpaper engine (PLS DISABLE WALLPAPER IN CONTROL CENTER>APPAERANCE>BACKGROUND)
+- usage of foot-server & foot-client to for less memory usage
 
 Launcher Actions :
 - Toogle left sidebar
@@ -21,7 +41,6 @@ Keybinds :
 
 Login executions:
 - Set a random wallpaper
-- Set a random sddm wallpaper
 (edit file: hypr-user.conf)
 
 
