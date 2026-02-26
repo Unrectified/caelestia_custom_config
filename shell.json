@@ -442,7 +442,8 @@
       },
       {
         "command": [
-          "/home/natha/bin/logout.sh"
+          "/usr/local/bin/caelestia_custom_scripts",
+          "logout.sh"
         ],
         "dangerous": true,
         "description": "Log out of the current session",
