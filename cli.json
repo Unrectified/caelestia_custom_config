@@ -4,8 +4,7 @@
     },
     "wallpaper": {
         "_postHook": "echo $WALLPAPER_PATH",
-        "postHook": "echo $WALLPAPER_PATH && /usr/local/bin/caelestia_custom_scripts wallpaper \"$WALLPAPER_PATH\" ",
-        "_postHook": "swww img \"$WALLPAPER_PATH\" --transition-type grow --transition-duration 2 --transition-fps 60 --transition-pos $(hyprctl cursorpos | tr -d ' ') --invert-y"
+        "postHook": "echo $WALLPAPER_PATH && /usr/local/bin/caelestia_custom_scripts wallpaper \"$WALLPAPER_PATH\" "
     },
     "theme": {
         "enableTerm": true,
