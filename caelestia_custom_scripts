@@ -89,6 +89,14 @@ case "$1" in
          "$CONFIG" > "$CONFIG.tmp" && mv "$CONFIG.tmp" "$CONFIG"
     fi
     ;;
+  logout)
+    if command -v hyprshutdown >/dev/null 2>&1; then
+      hyprshutdown --top-label "Stay HyDErated!🫧"
+    else
+      hyprctl dispatch exit 0
+    fi
+    hyprctl dispatch exit 0
+    ;;
   *)
     echo "Usage : $0 [mpvpaper|wallapper|transp|bar|black_white]"
     exit 1
