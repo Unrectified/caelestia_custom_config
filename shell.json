@@ -239,6 +239,8 @@
   "dashboard": {
     "enabled": true,
     "showOnHover": true,
+    "mediaUpdateInterval": 500,
+    "resourceUpdateInterval": 1000,
     "dragThreshold": 50,
     "performance": {
       "showBattery": true,
@@ -281,7 +283,10 @@
     "dragThreshold": 50,
     "vimKeybinds": false,
     "favouriteApps": [],
-    "hiddenApps": [],
+    "hiddenApps": [
+      "pandora-launcher",
+      "atlauncher"
+    ],
     "useFuzzy": {
       "apps": false,
       "actions": false,

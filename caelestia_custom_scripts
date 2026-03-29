@@ -25,7 +25,7 @@ case "$1" in
           ffmpeg -i "$2" -frames:v 1 "$CONVERTED_JPG" > /dev/null 2> /dev/null
         fi
         pkill mpvpaper
-        pkill swww
+        pkill awww
         REALVIDEO="$(realpath -P $2)"
         mpvpaper -f -o "no-audio --loop-playlist" '*' "$REALVIDEO"
         echo "real video $REALVIDEO"
@@ -38,7 +38,7 @@ case "$1" in
   ;;
   wallpaper)
     cursor=$(hyprctl cursorpos | tr -d ' ')
-    swww img "$2" --transition-type grow --transition-duration 2 --transition-fps 60 --transition-pos $cursor --invert-y
+    awww img "$2" --transition-type grow --transition-duration 2 --transition-fps 60 --transition-pos $cursor --invert-y
   ;;
   black_white)
     # 🔍 Si la ligne est commentée → décommenter
